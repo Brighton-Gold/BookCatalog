@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Book Catalog Program is designed to help you keep track of your book inventory. You can manage your books with attributes such as title, author, published year, inventory count, and genre. This program allows for easy addition and deletion of book entries.
+The Book Catalog Program is designed to help you keep track of your book inventory. You can manage your books with attributes such as title, author, published year, inventory count, and genre. This program allows for easy addition and deletion of book entries. Code is written in c plus plus. 
 
 ## Features
 
