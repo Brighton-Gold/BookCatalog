@@ -3,6 +3,8 @@
 #include <list>
 #include <cctype>
 #include <fstream>
+#include <string>
+
 using namespace std;
 
 list<string> commands { "Save", "Load", "Edit", "End" };
@@ -26,12 +28,26 @@ string prompt(string message)
 * This will open and return the user's file. Calls the prompt 
 * function to get the file name. 
 *********************************************************/
-ofstream getAndOpenFile()
+void getAndOpenFile()
 {
-   string fileName = prompt("Please enter the file name");
-   ofstream BookCatalog;
-   BookCatalog.open(fileName);
-   return BookCatalog;
+   string fileName = prompt("Please enter the file name ");
+ 
+   ifstream BookCatalog;
+
+   string mystring = " ";
+   BookCatalog.open(fileName, ios::out || ios::in);
+   string line;
+
+   if (BookCatalog.is_open()) { // always check whether the file is open
+
+      while (getline(BookCatalog, line))
+      {
+         cout << line;
+      }
+   }
+   else {
+      cout << "Unable to open\n";
+   }
 }
 
 /********************************************************
@@ -71,7 +87,7 @@ ofstream editFile(ofstream BookCatalog)
 ********************************************************/
 void getCommands() //this will get user command and decide what to do next. 
 {
-   ofstream BookCatalog = getAndOpenFile();
+   getAndOpenFile();
 
    string action = " ";
 
