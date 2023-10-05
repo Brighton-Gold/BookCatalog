@@ -8,6 +8,8 @@
 using namespace std;
 
 list<string> commands { "Save", "Load", "Edit", "End" };
+list<string> Book_Format {"Title", "Author", "Published Year", "Inventory Count", "Genre"}
+;
 
 
 /********************
@@ -17,37 +19,36 @@ string prompt(string message)
 {
    string input = " ";
    cout << (message), cin >> input;
-   
-   for (char& c : input) { //This will help prevent user mishap by lowercasing everything. Need to make sure it wont affect the file name. 
-      c = tolower(c);
+
+   //This will help prevent user mishap by lowercasing everything.
+   for (char& c : input) {
    }
    return input;
 }
 
 /*********************************************************
-* This will open and return the user's file. Calls the prompt 
-* function to get the file name. 
+* This will open and return the user's file. 
+* If file is create, will add in the format for the first line
 *********************************************************/
-void getAndOpenFile()
+string getAndOpenFile()
 {
    string fileName = prompt("Please enter the file name ");
  
-   ifstream BookCatalog;
+   ifstream BookCatalog(fileName);
+   string content = " ";
 
-   string mystring = " ";
-   BookCatalog.open(fileName, ios::out || ios::in);
-   string line;
-
-   if (BookCatalog.is_open()) { // always check whether the file is open
-
-      while (getline(BookCatalog, line))
-      {
-         cout << line;
-      }
+   if(!BookCatalog.is_open()){
+      throw runtime_error("File not opened");
    }
-   else {
-      cout << "Unable to open\n";
-   }
+   
+   content = (istreambuf_iterator<char>(BookCatalog), {});
+   return content;
+
+}
+
+void loadFile(string BookCatalog)
+{
+   cout << BookCatalog;
 }
 
 /********************************************************
