@@ -30,25 +30,31 @@ string prompt(string message)
 * This will open and return the user's file. 
 * If file is create, will add in the format for the first line
 *********************************************************/
-string getAndOpenFile()
+vector<string> getAndOpenFile()
 {
    string fileName = prompt("Please enter the file name ");
  
-   ifstream BookCatalog(fileName);
-   string content = " ";
+   fstream BookCatalog(fileName);
+   vector<string> contents = {};
+   string item = " ";
 
    if(!BookCatalog.is_open()){
       throw runtime_error("File not opened");
    }
-   
-   content = (istreambuf_iterator<char>(BookCatalog), {});
-   return content;
+
+   while (getline(BookCatalog, item))
+   {
+      contents.push_back(item);
+   }
+   return contents;
 
 }
 
-void loadFile(string BookCatalog)
+void loadFile(vector<string> BookCatalog)
 {
-   cout << BookCatalog;
+   for (auto element : BookCatalog) {
+      cout << element << " " << "\n";
+    }
 }
 
 /********************************************************
@@ -88,7 +94,7 @@ ofstream editFile(ofstream BookCatalog)
 ********************************************************/
 void getCommands() //this will get user command and decide what to do next. 
 {
-   getAndOpenFile();
+   vector<string> BookCatalog = getAndOpenFile();
 
    string action = " ";
 
@@ -105,7 +111,7 @@ void getCommands() //this will get user command and decide what to do next.
    }
 
    else if (action == "load"){
-      //display file
+      loadFile(BookCatalog);
    }
 
    else if (action == "edit"){
