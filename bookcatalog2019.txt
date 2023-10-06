@@ -1,3 +1,3 @@
-["Title", "Author", "Published Year", "Inventory Count", "Genre"]
-["To Kill a Mockingbird", "Harper Lee", "1960", 10, "Fiction"]
-["The Princess Bride", "William Goldman", "1973", 15, "Fantasy"]
+"Title", "Author", "Published Year", "Inventory Count", "Genre"
+"To Kill a Mockingbird", "Harper Lee", "1960", 10, "Fiction"
+"The Princess Bride", "William Goldman", "1973", 15, "Fantasy"

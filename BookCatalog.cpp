@@ -7,40 +7,55 @@
 
 using namespace std;
 
-list<string> commands { "Save", "Load", "Edit", "End" };
-list<string> Book_Format {"Title", "Author", "Published Year", "Inventory Count", "Genre"}
-;
+list<string> commands{ "Save", "Load", "Edit", "End" };
+list<string> Book_Format{ "Title", "Author", "Published Year", "Inventory Count", "Genre" };
 
 
-/********************
-Basic Prompt function. Will recieve user input 
-**********************/
-string prompt(string message)
+/*********************************
+Basic Prompt function. Will recieve
+user input and make it lower case.
+**********************************/
+string prompt(string message, bool lowerCase)
 {
    string input = " ";
-   cout << (message), cin >> input;
+   cout << (message+" "), cin >> input;
 
    //This will help prevent user mishap by lowercasing everything.
-   for (char& c : input) {
+   if (lowerCase) {
+      for (char& c : input) {
+      }
    }
    return input;
+
 }
 
+///*********************************
+//Another Prompt function. Will recieve
+//user input as is.
+//**********************************/
+//string promptNoEdits(string message)
+//{
+//   string input = " ";
+//   cout << (message), cin >> input;
+//   return input;
+//}
+
 /*********************************************************
-* This will open and return the user's file. 
-* If file is create, will add in the format for the first line
+* This will open and return the user's file as a vector.
+* If file is created, will add in the format for the first line
 *********************************************************/
 vector<string> getAndOpenFile()
 {
-   string fileName = prompt("Please enter the file name ");
- 
-   fstream BookCatalog(fileName);
-   vector<string> contents = {};
-   string item = " ";
+   string fileName = prompt("Please enter file name", false);
 
-   if(!BookCatalog.is_open()){
+   fstream BookCatalog(fileName);
+
+   if (!BookCatalog.is_open()) {
       throw runtime_error("File not opened");
    }
+
+   vector<string> contents = {};
+   string item = " ";
 
    while (getline(BookCatalog, item))
    {
@@ -54,42 +69,60 @@ void loadFile(vector<string> BookCatalog)
 {
    for (auto element : BookCatalog) {
       cout << element << " " << "\n";
-    }
+   }
 }
 
 /********************************************************
-* The function to edit the file. This one will call 2 
-* functions. One will either edit the file and the other will 
-* delete item. For multiple edits, the file will use recursion. 
+* The function to edit the file. This one will call 2
+* functions. One will either edit the file and the other will
+* delete item. For multiple edits, the file will use recursion.
 * When a user is done editing, they need to tell the program.
 *********************************************************/
-ofstream editFile(ofstream BookCatalog)
+vector<string> editFile(vector<string> BookCatalog)
 {
-   ofstream updateFile;
-   string action = prompt("Would like to add new items or delete?");
+   string action = prompt("Would like to add new items or delete? ", true);
+
+   string input;
+   list < string> BookInformation;
 
    if (action == "add") {
-      //call function to add new items
-   }
+      //for (string i : Book_Format) {
+      //   cout << i + " ";
+      //   getline(cin, input);
 
-   else if (action == "delete") {
+      //   BookInformation.push_back(input);
+
+      //}
+      //for (string content : BookInformation) {
+      //   BookCatalog.push_back(content);
+      //}
+
+      for (string i : Book_Format) {
+         input = prompt(i, false);
+         BookInformation.push_back(input);
+
+      }
+   }
+   
+   for()
+   //else if (action == "delete") {
       // call function to delete items
-   }
+   //}
 
-   else if (action == "end") {
+   //else if (action == "end") {
       // end the function
-   }
-   else {
+   //}
+   //else {
       // editFile(); Here do some recursion until user ends the program officially. 
-   }
+   //}
 
-   return updateFile;
+   return BookCatalog;
 }
 
 
 /********************************************************
 *This will get the user commands for what they wish to do
-* to the file. Each command calls a function. Recursion 
+* to the file. Each command calls a function. Recursion
 * will also be implemented until the file is saved and closed
 ********************************************************/
 void getCommands() //this will get user command and decide what to do next. 
@@ -103,23 +136,22 @@ void getCommands() //this will get user command and decide what to do next.
    for (auto i : commands) {
       cout << i << '\n';
    }
+   while (action != "end") {
 
-   action = prompt("-");
 
-   if (action == "save"){
-      //write to file
-   }
+      action = prompt("-", true);
 
-   else if (action == "load"){
-      loadFile(BookCatalog);
-   }
+      if (action == "save") {
+         //write to file
+      }
 
-   else if (action == "edit"){
-      // editFile(BookCatalog); //Unsure why error is here
-   }
+      else if (action == "load") {
+         loadFile(BookCatalog);
+      }
 
-   else if (action == "end"){
-      //close file
+      else if (action == "edit") {
+         BookCatalog = editFile(BookCatalog);
+      }
    }
 }
 
