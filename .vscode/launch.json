@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/brigh/Documents/BookCatalog",
-      "program": "c:/Users/brigh/Documents/BookCatalog/build/Debug/outDebug",
+      "cwd": "c:/Users/brigh/BookCatalog/BookCatalog",
+      "program": "c:/Users/brigh/BookCatalog/BookCatalog/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
